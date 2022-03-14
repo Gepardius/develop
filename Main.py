@@ -228,11 +228,12 @@ for col in ideal.columns:       # rename columns in ideal to fit criteria
 
 # print(ideal)
 
-# clean column names for the test table
+# rename columns for the test table
 test = test.rename(columns={"x": "X (test func)",
                             "y": "Y (test func)",
                             "Deviation": "Delta Y (test func)",
                             "Ideal index": "No. of ideal func"})
+# print(test)
 
 # Load data to sqlite
 train_db = SqliteDb()
