@@ -145,12 +145,13 @@ class SqliteDb(FindFunctions):
         :return: database file into the same folder as the project
         """
         try:
-            if isinstance(dataframe, pd.DataFrame):
-                engine = create_engine(f"sqlite:///{db_name}.db", echo=True)
-                sqlite_connection = engine.connect()
-                sqlite_table = table_name
-                dataframe.to_sql(sqlite_table, sqlite_connection, if_exists='fail')
-                sqlite_connection.close()
+            #if isinstance(dataframe, pd.DataFrame):
+            engine = create_engine(f"sqlite:///{db_name}.db", echo=True)
+            sqlite_connection = engine.connect()
+            for i in range(len(dataframe)):
+                dataframez = dataframe[i]
+                dataframez.to_sql(table_name[i], sqlite_connection, if_exists="fail")
+            sqlite_connection.close()
         except Exception:
             exception_type, exception_value, exception_traceback = sys.exc_info()
             print(exception_type, exception_value, exception_traceback)
@@ -236,14 +237,16 @@ test = test.rename(columns={"x": "X (test func)",
 # print(test)
 
 # Load data to sqlite
-train_db = SqliteDb()
-train_db.db_and_table_creation(train, "train_database", "train_table")
+dbs = SqliteDb()
+dataframes = [train, ideal, test]
+table_names = ["train_table1", "ideal_table1", "test_table1"]
+dbs.db_and_table_creation(dataframes, "assignment_database", table_names)
 
-ideal_db = SqliteDb()
-ideal_db.db_and_table_creation(ideal, "ideal_database", "ideal_table")
-
-test_db = SqliteDb()
-test_db.db_and_table_creation(test, "test_database", "test_table")
+# ideal_db = SqliteDb()
+# ideal_db.db_and_table_creation(ideal, "ideal_database", "ideal_table")
+#
+# test_db = SqliteDb()
+# test_db.db_and_table_creation(test, "test_database", "test_table")
 
 # Visualization
 # train functions
