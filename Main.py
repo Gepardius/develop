@@ -145,16 +145,15 @@ class SqliteDb(FindFunctions):
         :return: database file into the same folder as the project
         """
         try:
-            #if isinstance(dataframe, pd.DataFrame):
-            engine = create_engine(f"sqlite:///{db_name}.db", echo=True)
-            sqlite_connection = engine.connect()
-            for i in range(len(dataframe)):
+            engine = create_engine(f"sqlite:///{db_name}.db", echo=True)  # insert name of the DB
+            sqlite_connection = engine.connect()  # connect to the DB
+            for i in range(len(dataframes)):  # loop through list of dataframes
                 dataframez = dataframe[i]
-                dataframez.to_sql(table_name[i], sqlite_connection, if_exists="fail")
-            sqlite_connection.close()
+                dataframez.to_sql(table_name[i], sqlite_connection, if_exists="fail")  # load dataframe to DB
+            sqlite_connection.close()   # close connection
         except Exception:
-            exception_type, exception_value, exception_traceback = sys.exc_info()
-            print(exception_type, exception_value, exception_traceback)
+            exception_type, exception_value, exception_traceback = sys.exc_info()  # get exception info
+            print(exception_type, exception_value, exception_traceback)     #return exception info to the user
 
 
 # read CSV files and load them into Dataframes
@@ -215,7 +214,8 @@ for i in range(0, 100):
 # print(test_scat)
 
 # Drop other columns that are not used
-test = test.drop(columns=["y18", "y3", "y30", "y23"])
+test = test.drop(columns=["y18", "y3", "y30", "y23", "ideal y value"])
+# print(test)
 
 # rename columns for the train table
 train = train.rename(columns={"y1": "Y1 (training func)", "y2": "Y2 (training func)",
@@ -239,14 +239,8 @@ test = test.rename(columns={"x": "X (test func)",
 # Load data to sqlite
 dbs = SqliteDb()
 dataframes = [train, ideal, test]
-table_names = ["train_table1", "ideal_table1", "test_table1"]
+table_names = ["train_table", "ideal_table", "test_table"]
 dbs.db_and_table_creation(dataframes, "assignment_database", table_names)
-
-# ideal_db = SqliteDb()
-# ideal_db.db_and_table_creation(ideal, "ideal_database", "ideal_table")
-#
-# test_db = SqliteDb()
-# test_db.db_and_table_creation(test, "test_database", "test_table")
 
 # Visualization
 # train functions
