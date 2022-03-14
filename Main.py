@@ -1,4 +1,5 @@
 """
+Gal Bordelius, 92120668
 This is a Python-program that uses training data to choose the
 four ideal functions which are the best fit out of the fifty provided (C) *.
 
