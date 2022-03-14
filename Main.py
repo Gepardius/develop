@@ -196,7 +196,7 @@ test = FindFunctions().find_ideal_via_row(test)
 for i in range(0, 4):
     test["Ideal index"] = test["Ideal index"].replace([i], str(f"y{df.iloc[i, 0]}"))
 
-# add y values to another test_fun
+# add y values to another test_fun (used later for scatter plot)
 test_scat = test
 test_scat["ideal y value"] = ""
 for i in range(0, 100):
@@ -213,14 +213,15 @@ for i in range(0, 100):
         test_scat.iloc[i, 8] = test_scat.iloc[i, 1]
 # print(test_scat)
 
-# Drop other columns
+# Drop other columns that are not used
 test = test.drop(columns=["y18", "y3", "y30", "y23"])
 
-# clean column names for the train table
+# rename columns for the train table
 train = train.rename(columns={"y1": "Y1 (training func)", "y2": "Y2 (training func)",
                               "y3": "Y3 (training func)", "y4": "Y4 (training func)"})
+# print(train)
 
-# clean column names for the ideal table
+# rename columns for the ideal table
 for col in ideal.columns:       # rename columns in ideal to fit criteria
     if len(col) > 1:    # if column name is not x, therefore > 1
         ideal = ideal.rename(columns={col: f"{col} (ideal func)"})
@@ -272,9 +273,9 @@ for i in range(0, df.index[-1] + 1):
     # plt.show()
     # plt.clf()
 
-# test scatter
+# test scatter (show points of test.csv)
 # plt.clf()  # clear previous plots
-plt.scatter(test.iloc[:, 0], test.iloc[:, 1])
+plt.scatter(test.iloc[:, 0], test.iloc[:, 1])  # select x and y values
 # plt.show()
 
 plt.clf()  # clear previous plots
