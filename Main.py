@@ -249,7 +249,7 @@ x = train.iloc[:, 0]
 for i in range(1, len(train.columns)):
     plt.plot(x, train.iloc[:, i], c="g", label=f"Train function y{i}")
     plt.legend(loc=3)
-    # plt.show()
+    plt.show()
     plt.clf()
 
 # ideal functions (all 50)
@@ -258,8 +258,8 @@ x = ideal.iloc[:, 0]
 for i in range(1, len(ideal.columns)):
     plt.plot(x, ideal.iloc[:, i], c="#FF4500", label=f"Ideal function y{i}")
     plt.legend(loc=3)
-    # plt.show()
-    # plt.clf()
+    plt.show()
+    plt.clf()
 
 # ideal functions (4 chosen)
 plt.clf()
@@ -268,13 +268,13 @@ for i in range(0, df.index[-1] + 1):
     y = df.iloc[i, 0]  # get ideal y column number (18, 3, 30, 23)
     plt.plot(x, ideal.iloc[:, y], c="#FF4500", label=f"Ideal function y{y}")
     plt.legend(loc=3)
-    # plt.show()
-    # plt.clf()
+    plt.show()
+    plt.clf()
 
 # test scatter (show points of test.csv)
-# plt.clf()  # clear previous plots
+plt.clf()  # clear previous plots
 plt.scatter(test.iloc[:, 0], test.iloc[:, 1])  # select x and y values
-# plt.show()
+plt.show()
 
 plt.clf()  # clear previous plots
 # create lists to visualize test_scat dataframe
@@ -322,7 +322,3 @@ plt.xlabel("x")
 plt.xlabel("y")
 plt.legend()
 plt.show()
-
-# print(train.head)
-# print(ideal.head)
-# print(test.head)
