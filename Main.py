@@ -168,7 +168,7 @@ test = pd.read_csv("test.csv")
 
 # get ideal functions based on train data
 df = FindFunctions().find_ideal_matches(train, ideal)
-# print(df)
+print(df)
 
 # plot graph of all 4 pair functions together
 graph = FindFunctions()
